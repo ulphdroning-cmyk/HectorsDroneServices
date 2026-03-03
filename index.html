@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hector's Droning Services | Premium Aerial Cinematics</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=Playfair+Display:ital,wght@0,400;0,600;1,500&display=swap" rel="stylesheet">
+
+  <style>
+    /* =========================================================
+       THEME (colors, typography, spacing)
+       ========================================================= */
+    :root{
+      --bg:#121212;               /* deep charcoal background */
+      --panel:#181818;            /* slightly lighter panels */
+      --text:#F0F0F0;             /* soft near-white text */
+      --muted:#B8B8B8;            /* secondary text */
+      --accent:#0069FF;           /* deep teal accent */
+      --accent-2:#0069FF;         /* lighter teal for hovers */
+      --gold:#B8860B;             /* optional muted gold */
+      --ring: rgba(27,165,165,.35);
+      --maxw:1200px;
+      --radius:18px;
+      --shadow:0 20px 60px rgba(0,0,0,.45);
+      --spacing: clamp(14px, 1.6vw, 22px);
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      color:var(--text);
+      background:
+        radial-gradient(900px 500px at 85% -15%, rgba(25,196,196,.08), transparent 60%),
+        radial-gradient(700px 400px at 10% -10%, rgba(184,134,11,.06), transparent 60%),
+        var(--bg);
+      font-family: "Playfair Display", serif;
+      line-height: 1.6;
+    }
+    h1,h2,h3,h4,.nav-brand{
+      font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height:1.2;
+      margin:0 0 10px 0;
+    }
+    p{margin:0 0 12px 0}
+    a{color:inherit; text-decoration:none}
+
+    /* =========================================================
+       NAVIGATION
+       ========================================================= */
+    .nav{
+      position:fixed; inset:0 0 auto 0; height:66px; z-index:1000;
+      backdrop-filter:saturate(1.2) blur(8px);
+      background:linear-gradient(to bottom, rgba(18,18,18,.85), rgba(18,18,18,.55));
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .nav-inner{
+      max-width:var(--maxw);
+      margin:auto;
+      height:100%;
+      display:flex;
+      align-items:center;
+      gap:22px;
+      padding:0 18px;
+    }
+    .nav-brand{
+      font-weight:800;
+      letter-spacing:.3px;
+      color:var(--text);
+      white-space:nowrap;
+    }
+    .nav-links{
+      margin-left:auto;
+      display:flex;
+      gap: clamp(14px, 2.4vw, 32px);
+    }
+    .nav-links a{
+      color:var(--text);
+      opacity:.9;
+      font-weight:600;
+      position:relative;
+    }
+    .nav-links a::after{
+      content:"";
+      position:absolute; left:0; bottom:-8px; height:2px; width:0;
+      background:linear-gradient(90deg, var(--accent), var(--accent-2));
+      transition:width .28s ease;
+    }
+    .nav-links a:hover{opacity:1}
+    .nav-links a:hover::after{width:100%}
+
+    .menu-toggle{display:none; margin-left:auto; cursor:pointer; padding:8px}
+    .menu-toggle span{
+      display:block; width:26px; height:2px; background:#fff; margin:6px 0; transition:.3s;
+    }
+    @media (max-width: 880px){
+      .nav-links{
+        position:fixed; right:16px; top:76px; width:min(320px, 85vw);
+        background:rgba(24,24,24,.98);
+        border:1px solid rgba(255,255,255,.06);
+        border-radius:14px;
+        padding:16px;
+        box-shadow:var(--shadow);
+        display:grid; gap:14px;
+        transform:translateY(-14px) scale(.98);
+        opacity:0; pointer-events:none;
+        transition:.28s ease;
+      }
+      .nav-links.show{ opacity:1; pointer-events:auto; transform:none; }
+      .menu-toggle{display:block}
+    }
+
+    /* =========================================================
+       SECTIONS
+       ========================================================= */
+    section{padding: clamp(80px, 10vh, 140px) 20px}
+    .container{max-width:var(--maxw); margin:auto}
+    .reveal{opacity:0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease}
+    .reveal.visible{opacity:1; transform: none}
+
+    /* =========================================================
+       HERO
+       ========================================================= */
+    .hero{
+      min-height:100vh;
+      display:grid; place-items:center;
+      position:relative; overflow:hidden;
+    }
+    .hero::before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        linear-gradient(to top, rgba(0,0,0,.55), rgba(0,0,0,.2)),
+        url("https://png.pngtree.com/png-clipart/20200704/ourmid/pngtree-black-gradient-radial-gradient-png-image_2274808.jpg") center/cover no-repeat;
+      transform: scale(1.08);
+      animation: kenburns 22s ease-in-out infinite alternate;
+      filter: saturate(1.05) contrast(1.02) brightness(.85);
+    }
+    @keyframes kenburns{ from{transform: scale(1.08)} to{transform: scale(1.16)} }
+    .hero-content{
+      position:relative; z-index:1; text-align:center; padding: 0 10px;
+      max-width:900px; display:grid; gap:16px;
+    }
+    .eyebrow{letter-spacing:.28em; font-size:12px; color:var(--muted); text-transform:uppercase}
+    .hero h1{font-size: clamp(36px, 6vw, 72px)}
+    .hero p.lead{font-size: clamp(16px, 2vw, 20px); color:#E6E6E6}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding:14px 22px; border-radius:14px; font-weight:700; letter-spacing:.2px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color:#0c1111; border: 1px solid transparent;
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+      transition: transform .2s, box-shadow .2s, filter .2s;
+    }
+    .btn:hover{transform:translateY(-2px); filter:brightness(1.02); box-shadow:0 16px 40px rgba(0,0,0,.45)}
+
+    /* =========================================================
+       SERVICES
+       ========================================================= */
+    .section-title{margin-bottom: 6px; font-size: clamp(28px, 4vw, 42px)}
+    .section-sub{color:var(--muted); margin-bottom: 26px}
+    .services{ display:grid; gap:18px; grid-template-columns: repeat(4, 1fr); }
+    @media (max-width: 980px){ .services{grid-template-columns: 1fr 1fr} }
+    @media (max-width: 560px){ .services{grid-template-columns: 1fr} }
+
+    .service{
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.06);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow);
+      transition: transform .25s, border-color .25s, box-shadow .25s;
+      display:grid; gap: 8px;
+    }
+    .service:hover{transform: translateY(-6px); border-color: var(--ring); box-shadow: 0 22px 60px rgba(0,0,0,.5)}
+    .service .icon{
+      width:46px; height:46px; display:grid; place-items:center;
+      border-radius:12px;
+      background: radial-gradient(120px 120px at 20% 10%, rgba(25,196,196,.25), transparent 55%), #111;
+      border:1px solid rgba(255,255,255,.08);
+      color: var(--accent-2);
+      font-size: 22px; font-weight: 800;
+    }
+
+    /* =========================================================
+       PORTFOLIO
+       ========================================================= */
+    .portfolio-grid{ display:grid; gap:10px; grid-template-columns: repeat(12, 1fr); }
+    .tile{
+      position:relative; border-radius:16px; overflow:hidden;
+      border:1px solid rgba(255,255,255,.06); background:#0f1318;
+      aspect-ratio: 4/3; cursor:pointer;
+    }
+    .tile img{width:100%; height:100%; object-fit:cover; transition: transform .6s ease}
+    .tile:hover img{transform: scale(1.06)}
+    .tile .overlay{
+      position:absolute; inset:0; display:flex; align-items:flex-end; padding:12px;
+      background: linear-gradient(to top, rgba(0,0,0,.55), rgba(0,0,0,0));
+      opacity:0; transition:.35s;
+    }
+    .tile:hover .overlay{opacity:1}
+    .col-4{grid-column:span 4} .col-6{grid-column:span 6} .col-8{grid-column:span 8}
+    @media (max-width: 760px){
+      .portfolio-grid{grid-template-columns: repeat(6,1fr)}
+      .col-8,.col-6,.col-4{grid-column:span 6}
+    }
+
+    /* =========================================================
+       BOOKING (CALENDLY)
+       ========================================================= */
+    .booking-card {
+      background: var(--bg);
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      margin-top: 20px;
+    }
+
+    /* =========================================================
+       TESTIMONIALS
+       ========================================================= */
+    .carousel{
+      position:relative; overflow:hidden; border-radius: var(--radius);
+      border:1px solid rgba(255,255,255,.06);
+      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02));
+      box-shadow: var(--shadow);
+    }
+    .slides{display:flex; transition: transform .5s ease}
+    .slide{
+      min-width:100%; padding: clamp(20px, 6vw, 40px);
+      display:grid; grid-template-columns: auto 1fr; gap:16px; align-items:center;
+    }
+    .avatar{ width:64px; height:64px; border-radius:50%; overflow:hidden; border:1px solid rgba(255,255,255,.12) }
+    .stars{color:#f5c542; letter-spacing:1px; margin-top:4px}
+    .dotbar{ position:absolute; left:50%; transform:translateX(-50%); bottom:14px; display:flex; gap:8px; }
+    .dot{ width:9px; height:9px; border-radius:50%; background:#666; cursor:pointer; transition:.2s; }
+    .dot.active{background: var(--accent-2)}
+
+    /* =========================================================
+       CONTACT & ABOUT
+       ========================================================= */
+    .about-card{
+      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.06); border-radius: var(--radius);
+      padding: clamp(20px, 4vw, 36px); max-width: 900px;
+    }
+    .contact-cta{ display:grid; gap:12px; margin-top:8px; }
+    .contact-cta a{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:12px 16px; border-radius:12px; font-weight:700;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color:#0c1111; border:1px solid transparent;
+      box-shadow: 0 10px 30px rgba(0,0,0,.35); transition: transform .2s;
+      width:max-content;
+    }
+    footer{ max-width:var(--maxw); margin: 50px auto 80px; padding:0 20px; color:var(--muted); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; }
+
+    /* Lightbox */
+    .lightbox{
+      position:fixed; inset:0; z-index:2000; display:none;
+      background: rgba(0,0,0,.92); align-items:center; justify-content:center; padding: 30px;
+    }
+    .lightbox.show{display:flex}
+    .lightbox img{ max-width: 92vw; max-height: 82vh; border-radius: 12px; }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-brand">Hector's Droning Services</div>
+    <div class="menu-toggle" id="menuToggle"><span></span><span></span><span></span></div>
+    <div class="nav-links" id="navLinks">
+      <a href="#services">Services</a>
+      <a href="#booking">Book Session</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#faq">FAQs</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+
+  <header class="hero" id="home">
+    <div class="hero-content reveal visible">
+      <div class="eyebrow">Aerial Cinematics</div>
+      <h1>Discover a New Perspective</h1>
+      <p class="lead">Premium drone photography for estate, construction, and brands that need a different perspective.</p>
+      <a class="btn" href="#booking">Book a Shoot</a>
+    </div>
+  </header>
+
+  <section id="services">
+    <div class="container">
+      <h2 class="section-title reveal">Our Services</h2>
+      <div class="services">
+        <article class="service reveal">
+          <div class="icon">🏠</div>
+          <h3>Estate Cinematics</h3>
+          <p>Showcasing properties with amazing views and polished edits.</p>
+        </article>
+        <article class="service reveal">
+          <div class="icon">🏗️</div>
+          <h3>Construction</h3>
+          <p>Birds-eye view progress tracking and site changes.</p>
+        </article>
+        <article class="service reveal">
+          <div class="icon">🛠️</div>
+          <h3>Inspections</h3>
+          <p>Detailed imagery of roofs and towers for safety assessments.</p>
+        </article>
+        <article class="service reveal">
+          <div class="icon">🗺️</div>
+          <h3>Aerial Surveying</h3>
+          <p>Terrain viewing to support planning and measurements.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+<section id="why">
+  <div class="container">
+    <h2 class="section-title reveal">Why Choose Us</h2>
+    <p class="section-sub reveal">Professional, safe and fully prepared for every project.</p>
+
+    <div class="services">
+
+
+      <article class="service reveal">
+        <div class="icon">🎥</div>
+        <h3>4K Cinematic Quality</h3>
+        <p>High-resolution footage with professional colour grading.</p>
+      </article>
+
+      <article class="service reveal">
+        <div class="icon">⚡</div>
+        <h3>Fast Turnaround</h3>
+        <p>Edited footage delivered quickly without compromising quality.</p>
+      </article>
+
+      <article class="service reveal">
+        <div class="icon">🛡️</div>
+        <h3>Safety First</h3>
+        <p>Detailed pre-flight checks and location assessments every time.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="booking">
+  <div class="container">
+    <h2 class="section-title reveal">Reserve Your Session</h2>
+    <p class="section-sub reveal">
+      After booking, you'll receive a confirmation email where we’ll request the full shoot address and any access details.
+    </p>
+
+    <div class="booking-card reveal" style="border-radius:18px; overflow:hidden; background:#121212; border:1px solid rgba(255,255,255,.06); box-shadow:0 20px 60px rgba(0,0,0,.45);">
+    <!-- Calendly inline widget begin -->
+<div class="calendly-inline-widget" data-url="https://calendly.com/hecty-ulph/drone-session-booking?background_color=121212&text_color=f0f0f0" style="min-width:320px;height:700px;"></div>
+<script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+<!-- Calendly inline widget end -->
+    </div>
+  </div>
+</section>
+
+  
+<section id="pricing">
+  <div class="container">
+    <h2 class="section-title reveal">Pricing</h2>
+    <p class="section-sub reveal">Simple and transparent packages.</p>
+
+    <div class="services">
+      <article class="service reveal">
+        <h3>Photo Package</h3>
+        <p><strong>From £40</strong></p>
+        <p>Up to 45 minutes on-site shooting</p>
+        <p>10+ edited high-resolution images</p>
+      </article>
+
+      <article class="service reveal">
+        <h3>Construction Package</h3>
+        <p><strong>From £70</strong></p>
+        <p>Progress tracking footage</p>
+        <p>4K edited highlight video</p>
+      </article>
+
+      <article class="service reveal">
+        <h3>Custom Project</h3>
+        <p><strong>Quote Required</strong></p>
+        <p>Brand shoots, surveys & special requests</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+  <section id="portfolio">
+    <div class="container">
+      <h2 class="section-title reveal">Portfolio</h2>
+      <div class="portfolio-grid">
+        <figure class="tile col-8 reveal" data-index="0">
+          <img src="portfolio/DJI_0254.JPG" alt="Aerial Shot 1">
+          <div class="overlay"><h4>House Aerials</h4></div>
+        </figure>
+        <figure class="tile col-4 reveal" data-index="1">
+          <img src="portfolio/DJI_0255.JPG" alt="Aerial Shot 2">
+          <div class="overlay"><h4>Birds eye view</h4></div>
+        </figure>
+        <figure class="tile col-6 reveal" data-index="2">
+          <div style="padding:40px; color:var(--muted); text-align:center;">Coming Soon</div>
+          <div class="overlay"><h4>Progress Tracking</h4></div>
+        </figure>
+        <figure class="tile col-6 reveal" data-index="3">
+          <img src="portfolio/portfolio1.jpg" alt="Aerial Shot 3">
+          <div class="overlay"><h4>Nature & Terrain</h4></div>
+        </figure>
+      </div>
+    </div>
+  </section>
+<section id="comparison">
+  <div class="container">
+    <h2 class="section-title reveal">The Difference Aerial Makes</h2>
+    <p class="section-sub reveal">
+      See how professional drone cinematography transforms perspective and presentation.
+    </p>
+
+    <div class="comparison-grid reveal" style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+
+      <!-- BEFORE -->
+      <div style="border-radius:16px; overflow:hidden; border:1px solid rgba(255,255,255,.08); background:#181818; box-shadow:0 15px 40px rgba(0,0,0,.4);">
+        
+        <div style="position:relative;">
+          <div style="position:absolute; top:12px; left:12px; background:rgba(0,0,0,.7); color:white; padding:6px 12px; border-radius:20px; font-size:12px; font-weight:600;">
+            BEFORE
+          </div>
+          <img src="images/before.jpg" 
+               alt="Standard Ground Photo"
+               style="width:100%; height:250px; object-fit:cover; display:block;">
+        </div>
+
+        <div style="padding:16px; font-size:14px; color:#B8B8B8;">
+          Standard ground-level photography with limited perspective.
+        </div>
+
+      </div>
+
+      <!-- AFTER -->
+      <div style="border-radius:16px; overflow:hidden; border:1px solid rgba(255,255,255,.08); background:#181818; box-shadow:0 15px 40px rgba(0,0,0,.4);">
+        
+        <div style="position:relative;">
+          <div style="position:absolute; top:12px; left:12px; background:linear-gradient(135deg,#1BA5A5,#19C4C4); color:#0c1111; padding:6px 12px; border-radius:20px; font-size:12px; font-weight:700;">
+            AFTER
+          </div>
+          <img src="images/after.jpg" 
+               alt="Professional Drone Shot"
+               style="width:100%; height:250px; object-fit:cover; display:block;">
+        </div>
+
+        <div style="padding:16px; font-size:14px; color:#B8B8B8;">
+          Professional aerial imagery showcasing scale, layout, and surroundings.
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+  <div class="lightbox" id="lightbox">
+    <button class="lb-btn lb-close" id="lbClose" style="position:absolute; top:20px; right:20px; background:none; border:none; color:white; font-size:30px; cursor:pointer;">✕</button>
+    <img id="lbImage">
+  </div>
+<section id="faq">
+  <div class="container">
+    <h2 class="section-title reveal">Frequently Asked Questions</h2>
+
+    <div class="about-card reveal">
+      <h3>Is drone flying legal in residential areas?</h3>
+      <p>Yes. All flights are conducted in full compliance with UK CAA regulations and local safety requirements.</p>
+
+      <h3>What happens if the weather is bad?</h3>
+      <p>If conditions are unsafe for flying, we reschedule at no extra cost.</p>
+
+      <h3>How long does editing take?</h3>
+      <p>Most projects are delivered within 48–72 hours.</p>
+
+      <h3>Do I need permission from neighbours?</h3>
+      <p>In most cases, no — but we always assess the site and advise if any additional permissions are required.</p>
+    </div>
+  </div>
+</section>
+  <section id="locations">
+  <div class="container">
+    <h2 class="section-title reveal">Areas We Cover</h2>
+    <p class="section-sub reveal">
+      Providing aerial photography across West Meon, East Meon, and surrounding areas.
+    </p>
+  </div>
+</section>
+
+
+  <section id="about">
+    <div class="container">
+      <h2 class="section-title reveal">Our Story</h2>
+      <div class="about-card reveal">
+        <p>What started as a random idea while flying a drone in my garden has turned into a mission to capture the world from a different angle. I've spent countless hours fine-tuning my eye for detail to provide professional results for every client.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <h2 class="section-title reveal">Get in Touch</h2>
+      <div class="contact-cta reveal">
+        <a href="sms:+447774862763">📱 Message: +44 7774862763</a>
+        <a href="mailto:ulphdroning@gmail.com">✉️ Email: ulphdroning@gmail.com</a>
+      </div>
+    </div>
+  </section>
+
+
+  <footer>
+    <small>© <span id="year"></span> Hector's Droning Services</small>
+    <small>Aerials • Cinematic Footage</small>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+    });
+
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting){
+          e.target.classList.add('visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    revealEls.forEach(el => io.observe(el));
+
+    const lightbox = document.getElementById('lightbox');
+    const lbImage = document.getElementById('lbImage');
+    const tiles = document.querySelectorAll('.tile');
+
+    tiles.forEach(tile => {
+      tile.addEventListener('click', () => {
+        const img = tile.querySelector('img');
+        if(img) {
+          lbImage.src = img.src;
+          lightbox.classList.add('show');
+        }
+      });
+    });
+
+    document.getElementById('lbClose').addEventListener('click', () => lightbox.classList.remove('show'));
+
+    const slidesWrap = document.getElementById('slides');
+    const slides = Array.from(slidesWrap.children);
+    let slideIndex = 0;
+    const dotbar = document.getElementById('dotbar');
+
+    slides.forEach((_, i) => {
+      const dot = document.createElement('div');
+      dot.className = 'dot' + (i===0 ? ' active' : '');
+      dotbar.appendChild(dot);
+      dot.addEventListener('click', () => {
+        slideIndex = i;
+        slidesWrap.style.transform = `translateX(-${slideIndex * 100}%)`;
+        Array.from(dotbar.children).forEach((d,idx) => d.classList.toggle('active', idx===i));
+      });
+    });
+  </script>
+  
+</body>
+</html>
