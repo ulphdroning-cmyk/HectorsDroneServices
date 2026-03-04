@@ -207,7 +207,7 @@
     }
 
     /* =========================================================
-       BOOKING (CALENDLY)
+       BOOKING (CAL.COM)
        ========================================================= */
     .booking-card {
       background: var(--bg);
@@ -216,6 +216,7 @@
       overflow: hidden;
       box-shadow: var(--shadow);
       margin-top: 20px;
+      height: 800px; /* Fixed height for better visibility */
     }
 
     /* =========================================================
@@ -356,26 +357,47 @@
       After booking, you'll receive a confirmation email where we’ll request the full shoot address and any access details.
     </p>
 
-    <div class="booking-card reveal"
-         style="border-radius:18px;
-                overflow:hidden;
-                background:#121212;
-                border:1px solid rgba(255,255,255,.08);
-                box-shadow:0 20px 60px rgba(0,0,0,.45);">
+    <div class="booking-card reveal">
+      <div style="width:100%;height:100%;overflow:scroll" id="my-cal-inline-30min"></div>
+      <script type="text/javascript">
+        (function (C, A, L) { 
+          let p = function (a, ar) { a.q.push(ar); }; 
+          let d = C.document; 
+          C.Cal = C.Cal || function () { 
+            let cal = C.Cal; 
+            let ar = arguments; 
+            if (!cal.loaded) { 
+              cal.ns = {}; 
+              cal.q = cal.q || []; 
+              d.head.appendChild(d.createElement("script")).src = A; 
+              cal.loaded = true; 
+            } 
+            if (ar[0] === L) { 
+              const api = function () { p(api, arguments); }; 
+              const namespace = ar[1]; 
+              api.q = api.q || []; 
+              if(typeof namespace === "string"){
+                cal.ns[namespace] = cal.ns[namespace] || api;
+                p(cal.ns[namespace], ar);
+                p(cal, ["initNamespace", namespace]);
+              } else p(cal, ar); 
+              return;
+            } 
+            p(cal, ar); 
+          }; 
+        })(window, "https://app.cal.eu/embed/embed.js", "init");
 
-      <!-- Calendly inline widget begin -->
-      <div class="calendly-inline-widget"
-           data-url="https://calendly.com/hecty-ulph/drone-session-booking?background_color=121212&text_color=ffffff&primary_color=00aaff"
-           style="min-width:320px; height:700px;">
-      </div>
+        Cal("init", "30min", {origin:"https://app.cal.eu"});
 
-      <script type="text/javascript"
-              src="https://assets.calendly.com/assets/external/widget.js"
-              async>
+        Cal.ns["30min"]("inline", {
+          elementOrSelector:"#my-cal-inline-30min",
+          config: {"layout":"month_view","useSlotsViewOnSmallScreen":"true"},
+          calLink: "hectors-drone-services/30min",
+        });
+
+        Cal.ns["30min"]("ui", {"hideEventTypeDetails":false,"layout":"month_view", "theme":"dark"});
       </script>
-      <!-- Calendly inline widget end -->
-
-    </div>
+      </div>
   </div>
 </section>
 
@@ -441,7 +463,6 @@
 
     <div class="comparison-grid reveal" style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
 
-      <!-- BEFORE -->
       <div style="border-radius:16px; overflow:hidden; border:1px solid rgba(255,255,255,.08); background:#181818; box-shadow:0 15px 40px rgba(0,0,0,.4);">
         
         <div style="position:relative;">
@@ -459,7 +480,6 @@
 
       </div>
 
-      <!-- AFTER -->
       <div style="border-radius:16px; overflow:hidden; border:1px solid rgba(255,255,255,.08); background:#181818; box-shadow:0 15px 40px rgba(0,0,0,.4);">
         
         <div style="position:relative;">
@@ -574,46 +594,24 @@
     });
 
     document.getElementById('lbClose').addEventListener('click', () => lightbox.classList.remove('show'));
-
-    const slidesWrap = document.getElementById('slides');
-    const slides = Array.from(slidesWrap.children);
-    let slideIndex = 0;
-    const dotbar = document.getElementById('dotbar');
-
-    slides.forEach((_, i) => {
-      const dot = document.createElement('div');
-      dot.className = 'dot' + (i===0 ? ' active' : '');
-      dotbar.appendChild(dot);
-      dot.addEventListener('click', () => {
-        slideIndex = i;
-        slidesWrap.style.transform = `translateX(-${slideIndex * 100}%)`;
-        Array.from(dotbar.children).forEach((d,idx) => d.classList.toggle('active', idx===i));
-      });
-    });
   </script>
-  <!-- Small Suggestion Button -->
-<a href="https://forms.gle/5ruDbtT4cED2DevM8" 
-   target="_blank"
-   style="
-     position: fixed;
-     bottom: 20px;
-     right: 20px;
-     background: #007BFF;
-     color: white;
-     padding: 8px 16px;
-     font-size: 13px;
-     border-radius: 20px;
-     text-decoration: none;
-     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-     z-index: 9999;
-   ">
-   Send a Suggestion
-   
-   
-</a>
+
+  <a href="https://forms.gle/5ruDbtT4cED2DevM8" 
+     target="_blank"
+     style="
+       position: fixed;
+       bottom: 20px;
+       right: 20px;
+       background: #007BFF;
+       color: white;
+       padding: 8px 16px;
+       font-size: 13px;
+       border-radius: 20px;
+       text-decoration: none;
+       box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+       z-index: 9999;
+     ">
+    Send a Suggestion
+  </a>
 </body>
-
 </html>
-
-
-
