@@ -285,19 +285,25 @@
 </nav>
 
 
-  <section class="hero">
+  <section style="position:relative;height:90vh;display:flex;align-items:center;justify-content:center;text-align:center;color:white;overflow:hidden;">
 
-  <video autoplay muted loop playsinline class="hero-video">
+  <!-- Background Video -->
+  <video autoplay muted loop playsinline 
+  style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0.4;z-index:-1;">
     <source src="drone-video.mp4" type="video/mp4">
   </video>
 
-  <div class="hero-content">
-    <h1>Discover a New Perspective</h1>
-    <p>Professional Drone Photography & Videography</p>
-    <a href="#booking" class="btn">Book a Session</a>
+  <!-- Text Content -->
+  <div>
+    <h1 style="font-size:3rem;">Discover a New Perspective</h1>
+    <p style="font-size:1.3rem;">Professional Drone Photography & Videography</p>
+    <a href="#booking" style="display:inline-block;margin-top:20px;padding:12px 24px;background:#0077ff;color:white;text-decoration:none;border-radius:6px;">
+      Book a Session
+    </a>
   </div>
 
 </section>
+
 
 
   <section id="services">
@@ -634,6 +640,7 @@
 </script>
 </body>
 </html>
+
 
 
 
